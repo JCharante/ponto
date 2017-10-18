@@ -76,6 +76,17 @@ def verify_password(
 	return bcrypt.checkpw(password.encode('utf-8'), row.hashed_password.encode('utf-8'))
 
 
+def get_user_id(
+	session_id: str,
+) -> str:
+	db_session = db.DBSession()
+	row = db_session.query(db.SessionV1).filter(db.SessionV1.session_id == session_id).first()
+	if row is None:
+		raise exceptions.GenericError('Invalid Session ID')
+	db_session.close()
+	return row.user_id
+
+
 def create_pavlok_key(
 	user_id: str,
 	client_id: str,
