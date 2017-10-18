@@ -17,6 +17,7 @@ class UserV1(Base):
 class SessionV1(Base):
 	__tablename__ = 'SessionV1'
 	session_id = Column(String(36), primary_key=True)
+	valid_until = Column(DATETIME)
 
 
 class PavlokKeyV1(Base):
