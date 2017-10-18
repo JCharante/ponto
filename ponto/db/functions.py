@@ -11,7 +11,14 @@ def create_account(
 	email: str,
 	password: str,
 	user_id=None
-) -> None:
+) -> str:
+	"""
+
+	:param email: Must be unique per account
+	:param password:
+	:param user_id: (Optional) If not supplied it will be generated. Should be uuid4
+	:return:
+	"""
 	user_id = str(uuid4()) if user_id is None else user_id
 
 	hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
@@ -25,6 +32,7 @@ def create_account(
 	))
 	db_session.commit()
 	db_session.close()
+	return user_id
 
 
 def create_session(
