@@ -87,6 +87,20 @@ def get_user_id(
 	return row.user_id
 
 
+def get_pavlok_keys(
+	user_id: str,
+) -> types.PavlokKey:
+	keys = []
+	db_session = db.DBSession()
+	for row in db_session.query(db.PavlokKeyV1).filter(db.PavlokKeyV1.user_id == user_id).all():  # type: db.PavlokKeyV1
+		keys.append(types.PavlokKey(
+			key_id=row.key_id,
+			user_id=row.user_id
+		))
+	db_session.close()
+	return keys
+
+
 def create_pavlok_key(
 	user_id: str,
 	client_id: str,
