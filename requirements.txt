@@ -10,11 +10,13 @@ graphene==1.4.1
 graphql-core==1.1
 graphql-relay==0.4.5
 idna==2.6
+iso8601==0.1.12
 itsdangerous==0.24
 Jinja2==2.9.6
 MarkupSafe==1.0
 promise==2.0.2
 pycparser==2.18
+PyMySQL==0.7.11
 requests==2.18.4
 six==1.11.0
 SQLAlchemy==1.1.14
