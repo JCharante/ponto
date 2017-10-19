@@ -28,8 +28,10 @@ lambda-packages==0.16.1
 MarkupSafe==1.0
 placebo==0.8.1
 promise==2.0.2
+py==1.4.34
 pycparser==2.18
 PyMySQL==0.7.11
+pytest==3.2.3
 python-dateutil==2.6.1
 python-slugify==1.2.4
 PyYAML==3.12

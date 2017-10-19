@@ -77,14 +77,23 @@ def verify_password(
 
 
 def get_user_id(
-	session_id: str,
+	session_id: str = None,
+	email: str = None,
 ) -> str:
-	db_session = db.DBSession()
-	row = db_session.query(db.SessionV1).filter(db.SessionV1.session_id == session_id).first()
-	if row is None:
-		raise exceptions.GenericError('Invalid Session ID')
-	db_session.close()
-	return row.user_id
+	if session_id is not None:
+		db_session = db.DBSession()
+		row = db_session.query(db.SessionV1).filter(db.SessionV1.session_id == session_id).first()
+		if row is None:
+			raise exceptions.GenericError('Invalid Session ID')
+		db_session.close()
+		return row.user_id
+	if email is not None:
+		db_session = db.DBSession()
+		row = db_session.query(db.UserV1).filter(db.UserV1.email == email).first()  # type: db.UserV1
+		if row is None:
+			raise exceptions.GenericError('Unused Email Supplied')
+		db_session.close()
+		return row.user_id
 
 
 def get_pavlok_keys(
