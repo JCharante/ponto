@@ -98,7 +98,7 @@ def get_user_id(
 
 def get_pavlok_keys(
 	user_id: str,
-) -> types.PavlokKey:
+) -> List[types.PavlokKey]:
 	keys = []
 	db_session = db.DBSession()
 	for row in db_session.query(db.PavlokKeyV1).filter(db.PavlokKeyV1.user_id == user_id).all():  # type: db.PavlokKeyV1
@@ -108,6 +108,17 @@ def get_pavlok_keys(
 		))
 	db_session.close()
 	return keys
+
+
+def pavlok_get_access_token_from_key_id(
+	key_id: str,
+) -> str:
+	db_session = db.DBSession()
+	row = db_session.query(db.PavlokKeyV1).filter(db.PavlokKeyV1.key_id == key_id).first()  # type: db.PavlokKeyV1
+	db_session.close()
+	if row is None:
+		raise exceptions.GenericError('Invalid Pavlok Key ID')
+	return row.access_token
 
 
 def create_pavlok_key(
